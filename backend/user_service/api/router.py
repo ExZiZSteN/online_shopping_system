@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from user_service.models.user import User
 from user_service.database import get_db
-from user import router as user_router
-from router import router as review_router
+from user_service.api.user_api import router as user_router
+from user_service.api.review_api import router as review_router
 
 
 router = APIRouter()

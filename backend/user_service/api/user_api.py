@@ -15,7 +15,6 @@ from user_service.schemas.user import (
     TokenResponse,
     UserOut,
 )
-from user_service.schemas.user import RegisterRequest, LoginRequest, TokenResponse
 from user_service.service.auth import AuthService
 from user_service.service.user import UserService, get_current_user
 
@@ -25,7 +24,7 @@ def get_auth_service(db: Annotated[AsyncSession, Depends(get_db)]) -> AuthServic
     return AuthService(db)
 
 
-@router.post("auth/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+@router.post("/auth/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def register_user(
     body: RegisterRequest,
     service: Annotated[AuthService, Depends(get_auth_service)]
@@ -33,7 +32,7 @@ async def register_user(
     return await service.register(body)
 
 
-@router.post("auth/login", response_model=TokenResponse)
+@router.post("/auth/login", response_model=TokenResponse)
 async def login(
     body: LoginRequest,
     service: Annotated[AuthService, Depends(get_auth_service)]

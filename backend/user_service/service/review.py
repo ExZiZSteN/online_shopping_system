@@ -62,7 +62,7 @@ class ReviewService:
         factory: Optional[FeedbackEntityFactory] = None,
         ):
         self.db = db
-        self.factory = factory or StandardFeedbackFactory
+        self.factory = factory or StandardFeedbackFactory()
 
 
     async def get_review_by_id(self, review_id: uuid.UUID) -> Review:
@@ -84,7 +84,7 @@ class ReviewService:
 
 
     async def add_review(self, user_id: uuid.UUID, data: ReviewCreate) -> Review:
-        review = self.factory.create_review(user=user_id, data=data)
+        review = self.factory.create_review(user_id=user_id, data=data)
 
         self.db.add(review)
         await self.db.commit()
